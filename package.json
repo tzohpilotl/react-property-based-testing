@@ -4,7 +4,7 @@
   "description": "Proof of concept on how to do property-based testing on React components",
   "main": "index.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "repository": {
     "type": "git",

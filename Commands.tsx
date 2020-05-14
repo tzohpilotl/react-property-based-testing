@@ -5,10 +5,6 @@ interface  Model {
   value: string
 };
 
-interface Clicker {
-  click: typeof fireEvent.click;
-}
-
 interface TestTools {
   eventEmitter: typeof fireEvent;
 }
@@ -17,18 +13,19 @@ interface TestData {
   testId: string;
 }
 
-class ClickOnChildCommand implements fc.Command<Model, RenderResult> {
-  constructor(readonly clicker: Clicker, readonly element: Element) {};
+class ClickOnChildCommand implements fc.AsyncCommand<Model, RenderResult> {
+  constructor(readonly tools: TestTools, readonly n: number) {};
 
   check = () => true;
 
   async run(m: Model, q: RenderResult): Promise<void> {
     // This could be generalized to any side-effect
-    this.clicker.click(this.element);
+    const randomChild = q.container.children[this.n];
+    this.tools.eventEmitter.click(randomChild);
   }
 
   toString() {
-    return `click on ${this.element}`;
+    return `click randomly`;
   }
 }
 
@@ -50,12 +47,12 @@ class ChangeValueCommand implements fc.AsyncCommand<Model, RenderResult> {
 }
 
 class ReadValueCommand implements fc.Command<Model,RenderResult> {
-  constructor(readonly testId: string) {}
+  constructor(readonly data: TestData) {}
 
   check = () => true;
 
   async run(m: Model, q: RenderResult): Promise<void> {
-    const value = (await q.findByTestId(this.testId) as HTMLInputElement).value;
+    const value = (await q.findByTestId(this.data.testId) as HTMLInputElement).value;
     if (value !== m.value) {
       throw  new Error(`Input: '${value}' !== Model: '${m.value}'`);
     } 
