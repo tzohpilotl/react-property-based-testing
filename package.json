@@ -1,0 +1,35 @@
+{
+  "name": "react-property-based-testing",
+  "version": "1.0.0",
+  "description": "Proof of concept on how to do property-based testing on React components",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/tzohpilotl/react-property-based-testing.git"
+  },
+  "keywords": [
+    "property-based-testing",
+    "react"
+  ],
+  "author": "Tzohpilotl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tzohpilotl/react-property-based-testing/issues"
+  },
+  "homepage": "https://github.com/tzohpilotl/react-property-based-testing#readme",
+  "dependencies": {
+    "fast-check": "^1.24.2",
+    "jest": "^25.5.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^10.0.4",
+    "@types/jest": "^25.2.1",
+    "react": "^16.13.1",
+    "ts-jest": "^25.5.1",
+    "typescript": "^3.9.2"
+  }
+}
