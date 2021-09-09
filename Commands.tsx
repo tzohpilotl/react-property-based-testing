@@ -1,9 +1,9 @@
-import fc from 'fast-check';
-import { fireEvent, RenderResult } from '@testing-library/react';
+import fc from "fast-check";
+import { fireEvent, RenderResult } from "@testing-library/react";
 
-interface  Model {
-  value: string
-};
+interface Model {
+  value: string;
+}
 
 interface TestTools {
   eventEmitter: typeof fireEvent;
@@ -14,7 +14,7 @@ interface TestData {
 }
 
 class ClickOnChildCommand implements fc.AsyncCommand<Model, RenderResult> {
-  constructor(readonly tools: TestTools, readonly n: number) {};
+  constructor(readonly tools: TestTools, readonly n: number) {}
 
   check = () => true;
 
@@ -30,7 +30,11 @@ class ClickOnChildCommand implements fc.AsyncCommand<Model, RenderResult> {
 }
 
 class ChangeValueCommand implements fc.AsyncCommand<Model, RenderResult> {
-  constructor(readonly tools: TestTools, readonly data: TestData, readonly text: string) {};
+  constructor(
+    readonly tools: TestTools,
+    readonly data: TestData,
+    readonly text: string
+  ) {}
 
   check = () => true;
 
@@ -46,19 +50,27 @@ class ChangeValueCommand implements fc.AsyncCommand<Model, RenderResult> {
   }
 }
 
-class ReadValueCommand implements fc.Command<Model,RenderResult> {
+class ReadValueCommand implements fc.Command<Model, RenderResult> {
   constructor(readonly data: TestData) {}
 
   check = () => true;
 
   async run(m: Model, q: RenderResult): Promise<void> {
-    const value = (await q.findByTestId(this.data.testId) as HTMLInputElement).value;
+    const value = ((await q.findByTestId(this.data.testId)) as HTMLInputElement)
+      .value;
     if (value !== m.value) {
-      throw  new Error(`Input: '${value}' !== Model: '${m.value}'`);
-    } 
+      throw new Error(`Input: '${value}' !== Model: '${m.value}'`);
+    }
   }
 
-  toString = () => 'read';
+  toString = () => "read";
 }
 
-export { ClickOnChildCommand, ChangeValueCommand, ReadValueCommand, Model, TestTools, TestData };
+export {
+  ClickOnChildCommand,
+  ChangeValueCommand,
+  ReadValueCommand,
+  Model,
+  TestTools,
+  TestData,
+};
